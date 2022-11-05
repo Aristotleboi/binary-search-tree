@@ -1,4 +1,4 @@
-let exampleArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 16, 27, 89, 9, 17, 36, 28]
+let exampleArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 16, 27, 89, 9, 17, 36, 28, 19]
 
 function buildTree(array, start, end) {
     if(start>end) return null;
@@ -31,6 +31,20 @@ class Tree {
                 this.insert(value, root.left);
             }
         }
+    }
+    find(value, root) {
+        if(value === root.data) {
+            return root;
+        } else if(value > root.data) {
+            return this.find(value, root.right)
+        } else if(value < root.data) {
+            return this.find(value, root.left)
+        } else {
+            console.log("value is not in tree!")
+        }
+    }
+    delete(value) {
+        console.log(exampleTree.find(19, exampleTree.root))
     }
 }
 
@@ -85,9 +99,5 @@ console.log(arraySortAndRemove(exampleArray))
 
 
 
-exampleTree.insert(18, exampleTree.root)
-exampleTree.insert(19, exampleTree.root)
-exampleTree.insert(20, exampleTree.root)
-exampleTree.insert(19, exampleTree.root)
-exampleTree.insert(55, exampleTree.root)
+exampleTree.delete()
 prettyPrint(exampleTree.root)
