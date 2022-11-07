@@ -43,8 +43,53 @@ class Tree {
             console.log("value is not in tree!")
         }
     }
+    findParent(value, root) {
+        let parentNode = root;
+        if(value === parentNode.right.data || value === parentNode.left.data) {
+            return parentNode;
+        } else if(value > parentNode.data) {
+            return this.findParent(value, parentNode.right)
+        } else if(value < parentNode.data) {
+            return this.findParent(value, parentNode.left)
+        }
+
+    }
     delete(value) {
-        console.log(exampleTree.find(19, exampleTree.root))
+        //method functions werent working so recreated functions. look into why methods did not work
+        //fucntion to find parent 
+        const findParent = (value, root) => {
+            let parentNode = root;
+            if(value === parentNode.right.data || value === parentNode.left.data) {
+                return parentNode;
+            } else if(value > parentNode.data) {
+                return this.findParent(value, parentNode.right)
+            } else if(value < parentNode.data) {
+                return this.findParent(value, parentNode.left)
+            }
+        }
+        //function to find value
+        const find = (value, root) => {
+            if(value === root.data) {
+                return root;
+            } else if(value > root.data) {
+                return this.find(value, root.right)
+            } else if(value < root.data) {
+                return this.find(value, root.left)
+            } else {
+                console.log("value is not in tree!")
+            }
+        }
+        let parentNode = findParent(value, this.root)
+        let node = find(value, this.root)
+
+        //if value is a leaf
+        if(node.left == null && node.right == null) {
+            if(value > parentNode.data) {
+                parentNode.right = null;
+            } else if(value <parentNode.data) {
+                parentNode.left = null
+            }
+        }
     }
 }
 
@@ -98,6 +143,9 @@ let exampleTree = new Tree(exampleArray)
 console.log(arraySortAndRemove(exampleArray))
 
 
-
-exampleTree.delete()
 prettyPrint(exampleTree.root)
+exampleTree.delete(19)
+exampleTree.delete(28)
+prettyPrint(exampleTree.root)
+
+
