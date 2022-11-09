@@ -43,28 +43,30 @@ class Tree {
             console.log("value is not in tree!")
         }
     }
-    findParent(value, root) {
-        let parentNode = root;
-        if(value === parentNode.right.data || value === parentNode.left.data) {
-            return parentNode;
-        } else if(value > parentNode.data) {
-            return this.findParent(value, parentNode.right)
-        } else if(value < parentNode.data) {
-            return this.findParent(value, parentNode.left)
-        }
+    findParent(value, root, parent) {
+        let parentNode = root
+            if(value > parentNode.data) {
+                return findParent(value, parentNode.right, parentNode)
+            } else if(value < parentNode.data) {
+                return findParent(value, parentNode.left, parentNode)
+            } else {
+                console.log(parent)
+                return parent
+            }
 
     }
     delete(value) {
         //method functions werent working so recreated functions. look into why methods did not work
         //fucntion to find parent 
-        const findParent = (value, root) => {
-            let parentNode = root;
-            if(value === parentNode.right.data || value === parentNode.left.data) {
-                return parentNode;
-            } else if(value > parentNode.data) {
-                return this.findParent(value, parentNode.right)
+        const findParent = (value, root, parent) => {
+            let parentNode = root
+            if(value > parentNode.data) {
+                return findParent(value, parentNode.right, parentNode)
             } else if(value < parentNode.data) {
-                return this.findParent(value, parentNode.left)
+                return findParent(value, parentNode.left, parentNode)
+            } else {
+                console.log(parent)
+                return parent
             }
         }
         //function to find value
@@ -72,9 +74,9 @@ class Tree {
             if(value === root.data) {
                 return root;
             } else if(value > root.data) {
-                return this.find(value, root.right)
+                return find(value, root.right)
             } else if(value < root.data) {
-                return this.find(value, root.left)
+                return find(value, root.left)
             } else {
                 console.log("value is not in tree!")
             }
@@ -145,6 +147,7 @@ console.log(arraySortAndRemove(exampleArray))
 
 prettyPrint(exampleTree.root)
 exampleTree.delete(19)
+prettyPrint(exampleTree.root)
 exampleTree.delete(28)
 prettyPrint(exampleTree.root)
 
