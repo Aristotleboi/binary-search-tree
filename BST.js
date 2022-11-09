@@ -65,7 +65,6 @@ class Tree {
             } else if(value < parentNode.data) {
                 return findParent(value, parentNode.left, parentNode)
             } else {
-                console.log(parent)
                 return parent
             }
         }
@@ -90,6 +89,47 @@ class Tree {
                 parentNode.right = null;
             } else if(value <parentNode.data) {
                 parentNode.left = null
+            }
+        }
+        // if node to delete has one child
+        if (
+            node.left == null && node.right != null
+            ||
+            node.left != null && node.right == null
+        ) {
+            //checking if node to delete is right or left in parent node
+            if(value > parentNode.data) {
+                if(node.left == null) parentNode.right = node.right;
+                if(node.right == null) parentNode.right = node.left;
+            }
+            if (value < parentNode.data) {
+                if(node.left == null) parentNode.left = node.right;
+                if(node.right == null) parentNode.left = node.left
+            }
+        }
+        
+        //if node to be deleted has 2 children
+        if (node.right != null && node.left != null) {
+            let nextNode = node.right
+            while(nextNode.left != null) {
+                nextNode = nextNode.left
+            }
+            let nextNodeParent = findParent(nextNode.data, this.root)
+            if (nextNodeParent.data == value) {
+                nextNodeParent = parentNode
+            }
+            nextNodeParent.left = nextNode.right;
+            console.log(parentNode)
+            console.log(nextNode)
+            console.log(nextNodeParent)
+            if(value > parentNode.data) {
+                parentNode.right = nextNode;
+                nextNode.right = node.right
+                nextNode.left = node.left
+            } else if (value < parentNode.data) {
+                parentNode.left = nextNode;
+                nextNode.right = node.right
+                nextNode.left = node.left
             }
         }
     }
@@ -146,9 +186,7 @@ console.log(arraySortAndRemove(exampleArray))
 
 
 prettyPrint(exampleTree.root)
-exampleTree.delete(19)
-prettyPrint(exampleTree.root)
-exampleTree.delete(28)
+exampleTree.delete(8)
 prettyPrint(exampleTree.root)
 
 
