@@ -148,6 +148,19 @@ class Tree {
             
         }
     }
+    
+    levelOrder(func) {
+        let newstring = ''
+        let queue = [];
+        queue.push(this.root);
+        while (queue.length != 0) {
+            let current = queue.shift()
+            if(current.left != null) queue.push(current.left);
+            if(current.right != null) queue.push(current.right);
+            newstring += current.data + ', '
+        }
+        console.log(newstring)
+    }
 }
 
 class Node {
@@ -200,8 +213,8 @@ let exampleTree = new Tree(exampleArray)
 console.log(arraySortAndRemove(exampleArray))
 
 
+
 prettyPrint(exampleTree.root)
-exampleTree.delete(17)
-prettyPrint(exampleTree.root)
+exampleTree.levelOrder()
 
 
