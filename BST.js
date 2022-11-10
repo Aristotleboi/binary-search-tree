@@ -110,27 +110,42 @@ class Tree {
         
         //if node to be deleted has 2 children
         if (node.right != null && node.left != null) {
+            //nextNode is going to keep track of the smallest (most left) node
             let nextNode = node.right
             while(nextNode.left != null) {
                 nextNode = nextNode.left
             }
-            let nextNodeParent = findParent(nextNode.data, this.root)
-            if (nextNodeParent.data == value) {
-                nextNodeParent = parentNode
+            // check if successor (nextNode) is directly connected
+            if(nextNode.data == node.right.data) {
+                //in this case just promote next node to nodes original position
+                nextNode.left = node.left;
+                if(parentNode.right.data == value) parentNode.right = nextNode;
+                else if(parentNode.left.data == value) parentNode.left = nextNode
+                return
             }
-            nextNodeParent.left = nextNode.right;
+            //if node is the root node
+            else if (node == this.root) {
+                let nextNodeParent = findParent(nextNode.data, this.root)
+                nextNodeParent.left = nextNode.right;
+                nextNode.right = node.right;
+                nextNode.left = node.left;
+                this.root = nextNode
+                return
+            }
+            //if successor is not directly connected 
+            else {
+                let nextNodeParent = findParent(nextNode.data, this.root)
+                nextNodeParent.left = nextNode.right;
+                nextNode.right = node.right;
+                nextNode.left = node.left;
+                if(parentNode.right.data == value) parentNode.right = nextNode;
+                else if(parentNode.left.data == value) parentNode.left = nextNode
+                return
+            }
             console.log(parentNode)
             console.log(nextNode)
             console.log(nextNodeParent)
-            if(value > parentNode.data) {
-                parentNode.right = nextNode;
-                nextNode.right = node.right
-                nextNode.left = node.left
-            } else if (value < parentNode.data) {
-                parentNode.left = nextNode;
-                nextNode.right = node.right
-                nextNode.left = node.left
-            }
+            
         }
     }
 }
@@ -186,7 +201,7 @@ console.log(arraySortAndRemove(exampleArray))
 
 
 prettyPrint(exampleTree.root)
-exampleTree.delete(8)
+exampleTree.delete(17)
 prettyPrint(exampleTree.root)
 
 
