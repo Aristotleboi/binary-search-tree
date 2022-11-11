@@ -161,6 +161,43 @@ class Tree {
         }
         console.log(newstring)
     }
+
+    inorder() {
+        let inorderArray = []
+        const inorderSearch = (node) => {
+            if( node == null) return;
+            inorderSearch(node.left)
+            inorderArray.push(node.data)
+            inorderSearch(node.right)
+        }
+        inorderSearch(this.root)
+        console.log(inorderArray)
+    }
+
+    preorder() {
+        let preorderArray = []
+        const preorderSearch = (node) => {
+            if (node == null) return
+            preorderArray.push(node.data)
+            preorderSearch(node.left)
+            preorderSearch(node.right)
+        }
+        preorderSearch(this.root)
+        console.log(preorderArray)
+    }
+
+    postorder() {
+        let postorderArray = []
+        const postorderSearch = (node) => {
+            if (node == null) return
+            postorderSearch(node.left)
+            postorderSearch(node.right)
+            postorderArray.push(node.data)
+        }
+        postorderSearch(this.root)
+        console.log(postorderArray)
+    }
+
 }
 
 class Node {
@@ -215,6 +252,6 @@ console.log(arraySortAndRemove(exampleArray))
 
 
 prettyPrint(exampleTree.root)
-exampleTree.levelOrder()
+exampleTree.postorder()
 
 
