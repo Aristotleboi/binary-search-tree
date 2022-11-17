@@ -171,7 +171,7 @@ class Tree {
             inorderSearch(node.right)
         }
         inorderSearch(this.root)
-        console.log(inorderArray)
+        return inorderArray
     }
 
     preorder() {
@@ -260,6 +260,11 @@ class Tree {
         }
         return checkForBalance(node)
     }
+
+    rebalance() {
+        let newArray = this.inorder();
+        this.root = buildTree(newArray, 0, newArray.length - 1)
+    }
 }
 
 class Node {
@@ -313,7 +318,10 @@ let exampleTree = new Tree(exampleArray)
 console.log(arraySortAndRemove(exampleArray))
 
 
-
+exampleTree.insert(10000000, exampleTree.root)
+prettyPrint(exampleTree.root)
+console.log(exampleTree.checkBalance())
+exampleTree.rebalance()
 prettyPrint(exampleTree.root)
 console.log(exampleTree.checkBalance())
 
