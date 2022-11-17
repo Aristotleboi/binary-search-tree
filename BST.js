@@ -198,6 +198,68 @@ class Tree {
         console.log(postorderArray)
     }
 
+    height(node) {
+        const findHeight = (node) => {
+            if(node == null) return -1
+            let leftH = findHeight(node.left)
+            let rightH = findHeight(node.right)
+
+            if(leftH > rightH) {
+                return leftH + 1;
+            } else {
+                return rightH + 1
+            }
+        }
+        let nodeHeight = findHeight(node)
+        console.log(nodeHeight)
+    }
+
+    depth(node) {
+        let count = 0
+        const find = (value, root) => {
+            if(value === root.data) {
+                return count;
+            } else if(value > root.data) {
+                count++;
+                return find(value, root.right)
+            } else if(value < root.data) {
+                count++;
+                return find(value, root.left)
+            } else {
+                console.log("value is not in tree!")
+            }
+        }
+        let height = find(node, this.root);
+        console.log(height)
+    }
+
+    checkBalance() {
+        let node = this.root
+        const findHeight = (node) => {
+            if(node == null) return -1
+            let leftH = findHeight(node.left)
+            let rightH = findHeight(node.right)
+
+            if(leftH > rightH) {
+                return leftH + 1;
+            } else {
+                return rightH + 1
+            }
+        }
+        const checkForBalance = (root) => {
+            if(root == null) {
+                return true
+            }
+            let lh = findHeight(root.left);
+            let rh = findHeight(root.right);
+
+            if(Math.abs(lh - rh) <= 1 && checkForBalance(root.left)== true && checkForBalance(root.right) == true) {
+                return true
+            }
+            return false
+        }
+        return checkForBalance(node)
+    }
 }
 
 class Node {
@@ -206,6 +268,7 @@ class Node {
         this.left = null;
         this.right = null
     }
+
 }
 
 function sortArray(array) {
@@ -252,6 +315,6 @@ console.log(arraySortAndRemove(exampleArray))
 
 
 prettyPrint(exampleTree.root)
-exampleTree.postorder()
+console.log(exampleTree.checkBalance())
 
 
